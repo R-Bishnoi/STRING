@@ -1,0 +1,131 @@
+class Solution {
+public:
+    
+//validation of ipv4   
+bool ipv_4(string s,int n){
+  int dot=0;
+    
+    for(int i=0;i<n;i++){
+        if(s[i]=='.')dot++;
+    }
+    
+    
+if(dot!=3)return false;
+   
+    set<string>st;
+for(int j=0;j<256;j++)st.insert(to_string(j));
+  
+    int seg=0;
+    string temp="";
+    
+
+  for(int i=0;i<n;i++){
+    if(s[i]!='.')temp=temp+s[i];
+    
+    else{
+        if(st.find(temp)!=st.end())seg++;
+        temp="";
+    }
+    
+  }  
+       if(st.find(temp)!=st.end())seg++;
+    if(seg==4)return true;
+    else return false;
+    
+}  
+    
+    
+   
+    
+    
+    
+    
+    
+//check hex function for checking hexa decimal function    
+    
+    
+ bool hex(string p){
+     
+ int n = p.length();
+  
+    // Iterate over string
+    for (int i = 0; i < n; i++) {
+        char ch = p[i];
+  
+        // Check if the character
+        // is invalid
+if ((ch < '0' || ch > '9')&& (ch < 'A' || ch > 'F')&& (ch < 'a' || ch > 'f')) {
+            return false;
+        }
+    }
+  
+    return true;
+     
+     
+ }   
+    
+    
+    
+    
+    
+    
+    
+    
+
+//validation of ipv6
+bool ipv_6(string s,int n){
+    
+    int cln=0;
+  for(int i=0;i<n;i++){
+     if(s[i]==':')cln++; 
+  } 
+    
+ if(cln!=7)return false;
+    
+vector<string>v;
+    
+    string temp="";
+    
+    
+    
+    for(int i=0;i<n;i++){
+       if(s[i]!=':'){
+           temp=temp+s[i];
+       } 
+        else{
+            v.push_back(temp);
+            temp="";
+        }
+    }
+    
+ v.push_back(temp);   
+    
+    
+ if(v.size()!=8)return false;   
+    
+  
+for(int j=0;j<v.size();j++){
+     if(!hex(v[j]) || v[j].size()>4 || v[j].size()<1)return false;
+}
+    
+    
+ return true;   
+}
+    
+    
+    
+    
+    
+    
+    
+    string validIPAddress(string s) {
+       
+       int n=s.size(); 
+        
+    if(ipv_4(s,n))return "IPv4";
+    else if(ipv_6(s,n))return "IPv6";
+        else return "Neither";
+         
+    }
+        
+};
