@@ -1,0 +1,40 @@
+class Solution {
+    public:
+        int isValid(string s) {
+           
+       int n=s.size();
+       
+     int dot=0;
+     for(int i=0;i<n;i++){
+         if(s[i]=='.')dot++;
+     }
+  
+  if(dot!=3)return 0;
+  
+  int seg=0;
+  unordered_set<string>st;
+  
+ for(int i=0;i<256;i++)
+     st.insert(to_string(i));
+ 
+ string temp = "";          
+ 
+for(int i=0;i<n;i++){
+    
+  if(s[i]!='.') temp=temp+s[i];
+  
+  else {
+      if(st.find(temp)!=st.end())seg++;
+      temp="";
+  }
+}
+
+
+if(st.find(temp)!=st.end())seg++;
+
+if(seg==4)return 1;
+else return 0;
+
+           
+        }
+};
