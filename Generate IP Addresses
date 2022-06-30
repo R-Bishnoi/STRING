@@ -1,0 +1,38 @@
+class Solution{
+  public:
+    vector<string> genIp(string &s) {
+      string ans;
+      vector<string>res;
+     for(int a=1;a<=3;a++){
+         for(int b=1;b<=3;b++){
+             for(int c=1;c<=3;c++){
+                 for(int d=1;d<=3;d++){
+                     if((a+b+c+d)==s.size()){
+                      int w=stoi(s.substr(0,a));   
+                      int x=stoi(s.substr(a,b));   
+                      int y=stoi(s.substr(a+b,c));   
+                      int z=stoi(s.substr(a+b+c,d));   
+                         
+             if(w<=255 && x<=255 && y<=255 && z<=255){
+                 if((ans=to_string(w)+'.'+to_string(x)+'.'+to_string(y)+'.'+to_string(z)).size()==s.size()+3)
+                 res.push_back(ans);
+             }            
+                     }
+                 }
+             }
+         }
+     } 
+      
+    if(res.size()==0)res.push_back("-1");  
+      
+    return res;  
+      
+    }
+
+};
+
+
+
+
+
+
