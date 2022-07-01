@@ -1,0 +1,80 @@
+class Solution{
+    public:
+    
+    
+ void dfs(int startpoint,vector<vector<int>>adj,vector<bool>&vis){
+     vis[startpoint]=true;
+     
+     for(auto x:adj[startpoint]){
+         if(vis[x]==false)
+            dfs(x,adj,vis);
+            
+         
+     }
+     //return;
+ } 
+    
+    
+
+    
+    int isCircle(int n, vector<string>arr){
+    //adj. list    
+     vector<vector<int>>adj(26);
+    //visited array
+    vector<bool>vis(26,false);
+    
+    //in deg or out deg
+    vector<int>in(26,0);
+    vector<int>out(26,0); 
+  
+  
+ //add edge in graph and find in deg and out deg 
+  for(int i=0;i<n;i++){
+      string s=arr[i];
+      int start=s[0]-'a';
+      int end=s[s.size()-1]-'a';
+      adj[start].push_back(end);
+      in[end]++;
+      out[start]++;
+  }
+  
+
+//find no.of vertex 
+int p=0;
+int startpoint=-1;
+for(int i=0;i<26;i++){
+    if(adj[i].size()!=0){
+        p++;
+        startpoint=i;
+    }
+}
+
+
+//check in and out deg .will be same
+
+for(int i=0;i<26;i++){
+    if(in[i]!=out[i])return false;
+}
+
+
+ if(startpoint==-1)return false;
+ 
+ //dfs call for checking circle
+
+ dfs(startpoint,adj,vis);
+ 
+//visited vertex count
+int q=0;
+for(int i=0;i<26;i++){
+    if(vis[i])q++;
+}
+
+if(q!=p)return false;
+
+return true;
+     
+        
+    }
+    
+
+};
