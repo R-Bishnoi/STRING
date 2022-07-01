@@ -1,67 +1,62 @@
-class Solution{
-    public:
-    
-    
-    string rearrangeString(string s){
-       
-       int n=s.size();
-       unordered_map<char,int>mp;
-       
-    for(int i=0;i<n;i++)
-        mp[s[i]]++;
-    
-    //freq , character
-    priority_queue<pair<int,char>>pq;
-   
+class Solution {
+public:
+    string reorganizeString(string s) {
+        
+      int n=s.size();
   
-  for(char i='a';i<='z';i++){
-      if(mp[i]>0)pq.push({mp[i],i});
-      
-       if(mp[i]>(n+1)/2)return "-1";
-  }
-  
-  
-  
-  string res="";
-  
-  while(pq.size()>=2){
-      
-     pair<int,char>a=pq.top();
-     pq.pop();
-     
-     pair<int,char>b=pq.top();
-     pq.pop();
-     
-     
-     res+=a.second;
-     res+=b.second;
-  
-     
-     mp[a.second]--;
-     mp[b.second]--;
-     
-  if(mp[a.second]>0)
-      pq.push({mp[a.second],a.second});
-      
-  if(mp[b.second]>0)
-     pq.push({mp[b.second],b.second});
-  
-      
-      
-  }
-  
-  
-  while(!pq.empty()){
-      res+=pq.top().second;
-      pq.pop();
-  }
-  
-  
-  return res;     
-       
+//account of frequency of each characters
+  unordered_map<char,int>mp;
+      for(int i=0;i<n;i++)
+          mp[s[i]]++;
+        
+
+//make priority queue for chossing max frequency character
+        priority_queue<pair<int,char>>pq;
+        
+    for(char c='a';c<='z';c++){
+         if(mp[c]>0)
+             pq.push({mp[c],c});
+        
+        if(mp[c]>(n+1)/2)return "";
     }
-    
-    
-    
-    
+        
+        
+//reorganize string and store it in res string
+        
+        string res="";
+        
+    while(pq.size()>=2){
+        pair<int,char>a=pq.top();
+        pq.pop();
+        
+        pair<int,char>b=pq.top();
+        pq.pop();
+        
+        
+   res+=a.second;
+   res+=b.second;
+        
+        mp[a.second]--;
+        mp[b.second]--;
+        
+   if(mp[a.second]>0)
+       pq.push({mp[a.second],a.second});
+        
+        
+      if(mp[b.second]>0)
+       pq.push({mp[b.second],b.second});     
+        
+    }
+  
+while(!pq.empty()){
+    res+=pq.top().second;
+    pq.pop();
+}
+        
+        
+        
+return res;        
+        
+        
+    }
 };
