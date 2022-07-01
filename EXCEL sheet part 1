@@ -1,0 +1,47 @@
+
+//no. to string
+
+class Solution{
+    public:
+    string ExcelColumn(int n){
+     
+     string res;
+     while(n){
+         n--;
+         int curr=n%26;
+         n=n/26;
+         res.push_back(curr+'A');
+     }
+        
+      reverse(res.begin(),res.end());
+      return res;
+        
+        
+     
+    }
+};
+
+
+
+
+//string to number
+
+class Solution {
+public:
+    int titleToNumber(string s) {
+        
+        int n=s.size();
+        int ans=0;
+        
+        for(int i=0;i<n;i++){
+            ans=ans*26;
+            ans+=(s[i]-'A'+1);
+        }
+        return ans;
+        
+    }
+};
+
+
+
+
