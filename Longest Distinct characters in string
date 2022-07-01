@@ -1,0 +1,40 @@
+int longestSubstrDistinctChars (string s){
+    
+    //sliding window type problem
+    unordered_map<char,int>mp;
+
+    int n=s.size();
+    int mx=0;
+
+    
+    for(char c='a';c<='z';c++){
+        mp[c]=0;
+    } 
+    int j=0;
+    int i=0;
+    
+
+while(j<n){
+    
+    if(mp[s[j]]==0){
+        mp[s[j]]++;
+        j++;
+    }
+    
+    else {
+        mp[s[i]]--;
+        i++;
+        mx=max(mx,j-i+1);
+    }
+   
+}
+    
+    
+  mx=max(mx,j-i);  
+
+    
+  
+ return mx;   
+    
+}
+
